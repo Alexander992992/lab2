@@ -4,15 +4,15 @@
 #include "sentense_filter.h"
 
 void display_menu() {
-    cout << "\n===== Student Management Menu =====" << endl;
-    cout << "1. Add a student" << endl;
-    cout << "2. Remove a student" << endl;
-    cout << "3. Edit student data" << endl;
-    cout << "4. Display all students" << endl;
-    cout << "5. Sort by average mark" << endl;
-    cout << "6. Show students with at least one failing grade" << endl;
-    cout << "0. Exit" << endl;
-    cout << "Enter your choice: ";
+    cout << "\n===== Меню управления студентами =====" << endl;
+    cout << "1. Добавить студента" << endl;
+    cout << "2. Удалить студента" << endl;
+    cout << "3. Редактировать данные студента" << endl;
+    cout << "4. Показать всех студентов" << endl;
+    cout << "5. Сортировать по среднему баллу" << endl;
+    cout << "6. Показать студентов с неудовлетворительными оценками" << endl;
+    cout << "0. Выход" << endl;
+    cout << "Введите ваш выбор: ";
 }
 
 int students_program() {
@@ -27,32 +27,32 @@ int students_program() {
             case 1: {
                 string name;
                 int number, size;
-                cout << "Enter student's name: ";
+                cout << "Введите имя студента: ";
                 getline(cin, name);
-                cout << "Enter student's number of the group: ";
+                cout << "Введите номер группы студента: ";
                 number = check_input();
-                cout << "Enter the number of subjects: ";
+                cout << "Введите количество предметов: ";
                 size = check_input();
 
                 string* subjects = new string[size];
                 float* marks = new float[size];
 
-                cout << "Enter subject names: ";
+                cout << "Введите названия предметов: ";
                 for (int i = 0; i < size; i++) {
                     cin >> subjects[i];
                 }
 
-                cout << "Enter marks: ";
+                cout << "Введите оценки: ";
                 for (int i = 0; i < size; i++) {
                     cin >> marks[i];
                 }
 
-                cout << "Enter the student's index to add: ";
+                cout << "Введите индекс для добавления студента: ";
                 int index = check_input();
 
                 Student* new_student = new Student(name, number, subjects, marks, size);
                 students.add_student(new_student, index - 1);
-                cout << "Student added." << endl;
+                cout << "Студент добавлен." << endl;
 
                 delete[] subjects;
                 delete[] marks;
@@ -60,11 +60,11 @@ int students_program() {
             }
             case 2: {
                 int index;
-                cout << "Enter the index of the student to remove: ";
+                cout << "Введите индекс студента для удаления: ";
                 index = check_input();
                 try {
                     students.delete_student(index - 1);
-                    cout << "Student removed." << endl;
+                    cout << "Студент удален." << endl;
                 } catch (const out_of_range& e) {
                     cout << e.what() << endl;
                 }
@@ -72,11 +72,11 @@ int students_program() {
             }
             case 3: {
                 int index;
-                cout << "Enter the index of the student to edit: ";
+                cout << "Введите индекс студента для редактирования: ";
                 index = check_input();
                 try {
                     students.edit_student(index - 1);
-                    cout << "Student data updated." << endl;
+                    cout << "Данные студента обновлены." << endl;
                 } catch (const out_of_range& e) {
                     cout << e.what() << endl;
                 }
@@ -96,11 +96,11 @@ int students_program() {
                 break;
             }
             case 0: {
-                cout << "Exiting the program." << endl;
+                cout << "Выход из программы." << endl;
                 return 0;
             }
             default: {
-                cout << "Invalid choice! Try again." << endl;
+                cout << "Неверный выбор! Попробуйте снова." << endl;
                 break;
             }
         }
@@ -112,36 +112,36 @@ int students_program() {
 int words_program() {
     try {
         int choice;
-        cout << "Select a source (1 - text string, 2 - file): ";
+        cout << "Выберите источник (1 - текстовая строка, 2 - файл): ";
         if (!(cin >> choice)) {
-            throw invalid_argument("Error: Invalid input for source selection.");
+            throw invalid_argument("Ошибка: Неверный ввод для выбора источника.");
         }
 
         if (choice == 1) {
             cin.ignore();
             char text[8192];
-            cout << "Enter the text: ";
+            cout << "Введите текст: ";
             cin.getline(text, sizeof(text));
 
             if (cin.fail()) {
-                throw overflow_error("Error: Exceeded maximum text length.");
+                throw overflow_error("Ошибка: Превышена максимальная длина текста.");
             }
 
             SentenceFilter filter(text, true);
             filter.result();
         } else if (choice == 2) {
             char filename[256];
-            cout << "Enter the file name: ";
+            cout << "Введите имя файла: ";
             cin >> filename;
             ifstream file(filename);
             if (!file) {
-                throw runtime_error("Error: File not found or cannot be opened.");
+                throw runtime_error("Ошибка: Файл не найден или не может быть открыт.");
             }
             file.close();
             SentenceFilter filter(filename);
             filter.result();
         } else {
-            throw out_of_range("Error: Selected source does not exist.");
+            throw out_of_range("Ошибка: Выбранный источник не существует.");
         }
     }
     catch (const invalid_argument& e) {
@@ -161,7 +161,7 @@ int words_program() {
         return 4;
     }
     catch (...) {
-        cerr << "An unknown error occurred." << endl;
+        cerr << "Произошла неизвестная ошибка." << endl;
         return -1;
     }
     return 0;
@@ -170,10 +170,10 @@ int words_program() {
 int main() {
     int choice;
     while (true) {
-        cout << "Select task type:" << endl;
-        cout << "1 - Standard streams" << endl;
-        cout << "2 - File and text streams" << endl;
-        cout << "3 - Exit" << endl;
+        cout << "Выберите тип задачи:" << endl;
+        cout << "1 - Стандартные потоки" << endl;
+        cout << "2 - Файловые и текстовые потоки" << endl;
+        cout << "3 - Выход" << endl;
         choice = check_input();
 
         switch (choice) {
@@ -184,10 +184,10 @@ int main() {
                 words_program();
                 break;
             case 3:
-                cout << "Exiting." << endl;
+                cout << "Выход." << endl;
                 return 0;
             default:
-                cout << "Invalid choice! Try again." << endl;
+                cout << "Неверный выбор! Попробуйте снова." << endl;
                 break;
         }
     }
