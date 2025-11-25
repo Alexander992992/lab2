@@ -1,7 +1,7 @@
 #include "student.h"
 
 Student::Student() : name(""), number(0), subjects(nullptr), marks(nullptr), size(0) {
-    cout << "The constructor without parameters for the Student class is called\n";
+    cout << "Вызван конструктор без параметров для класса Student\n";
 }
 
 Student::Student(const string& n, const int& num, const string* s, const float* m, const int& siz)
@@ -12,7 +12,7 @@ Student::Student(const string& n, const int& num, const string* s, const float* 
     }
     marks = new float[size];
     std::copy(m, m + size, marks);
-    cout << "The constructor with parameters for the Student class is called\n";
+    cout << "Вызван конструктор с параметрами для класса Student\n";
 }
 
 
@@ -23,14 +23,14 @@ Student::Student(const Student& other) : name(other.name), number(other.number),
     }
     marks = new float[size];
     std::copy(other.marks, other.marks + size, marks);
-    cout << "The copy constructor for the Student class is called\n";
+    cout << "Вызван конструктор копирования для класса Student\n";
 }
 
 
 Student::~Student() {
      delete[] subjects;
     delete[] marks;
-    cout << "The destructor for the Student class is called\n";
+    cout << "Вызван деструктор для класса Student\n";
 }
 
 string Student::get_name() const{
@@ -80,26 +80,26 @@ void Student::set_size(const int& siz) {
 }
 
 void Student::display_student() {
-    cout << "Name: " << name << "\nNumber of the group: " << number << "\nSubjects: ";
+    cout << "Имя: " << name << "\nНомер группы: " << number << "\nПредметы: ";
     for (int i = 0; i < size; i++) cout << subjects[i] << ' ';
-    cout << "\nMarks: ";
+    cout << "\nОценки: ";
     for (int i = 0; i < size; i++) cout << marks[i] << ' ';
     cout << endl;
 }
 
 void Student::edit_student() {
     int choice;
-    cout << "Choose what you want to edit:\n";
-    cout << "1. Student name\n";
-    cout << "2. Student number of the group\n";
-    cout << "3. List of subjects and grades\n";
-    cout << "Enter your choice: ";
+    cout << "Выберите, что хотите изменить:\n";
+    cout << "1. Имя студента\n";
+    cout << "2. Номер группы студента\n";
+    cout << "3. Список предметов и оценок\n";
+    cout << "Введите ваш выбор: ";
     cin >> choice;
 
     switch (choice) {
         case 1: {
             string new_name;
-            cout << "Enter the new student name: ";
+            cout << "Введите новое имя студента: ";
             cin.ignore();
             getline(cin, new_name);
             set_name(new_name);
@@ -107,25 +107,25 @@ void Student::edit_student() {
         }
         case 2: {
             int new_number;
-            cout << "Enter the new student number of the group: ";
+            cout << "Введите новый номер группы студента: ";
             cin >> new_number;
             set_number(new_number);
             break;
         }
         case 3: {
             int new_size;
-            cout << "Enter the number of subjects: ";
+            cout << "Введите количество предметов: ";
             cin >> new_size;
 
             string* new_subjects = new string[new_size];
-            cout << "Enter the subject names: ";
+            cout << "Введите названия предметов: ";
             for (int i = 0; i < new_size; i++) {
                 cin >> new_subjects[i];
             }
 
             set_subjects(new_subjects, new_size);
             float* new_marks = new float[new_size];
-            cout << "Enter the grades: ";
+            cout << "Введите оценки: ";
             for (int i = 0; i < new_size; i++) {
                 cin >> new_marks[i];
             }
@@ -136,7 +136,7 @@ void Student::edit_student() {
             break;
         }
         default:
-            cout << "Invalid choice!" << endl;
+            cout << "Неверный выбор!" << endl;
     }
 }
 

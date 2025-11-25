@@ -1,13 +1,13 @@
 #include "container.h"
 
-Container::Container() : head(nullptr), tail(nullptr), count(0) {cout << "The constructor without parameters for the Container class is called\n";}
+Container::Container() : head(nullptr), tail(nullptr), count(0) {cout << "Вызван конструктор без параметров для класса Container\n";}
 
 Container::Container(Node* h, Node* t, const int c) : head(h), tail(t), count(c) {
-    cout << "The constructor with parameters for the Container class is called\n";
+    cout << "Вызван конструктор с параметрами для класса Container\n";
 }
 
 Container::Container(const Container& other) : head(other.head), tail(other.tail), count(other.count) {
-    cout << "The copy constructor for the Container class is called\n";
+    cout << "Вызван конструктор копирования для класса Container\n";
 }
 
 Container::~Container() {
@@ -19,7 +19,7 @@ Container::~Container() {
     }
     tail = nullptr;
     count = 0;
-    cout << "The destructor for the Container class is called" << endl;
+    cout << "Вызван деструктор для класса Container" << endl;
 }
 
 
@@ -33,7 +33,7 @@ Node* Container::get_tail() {
 
 void Container::add_student(Student* St, int index) {
     if (index < 0 || index > count) {
-        throw out_of_range("Index out of range");
+        throw out_of_range("Индекс вне диапазона");
     }
     
     Node* node_to_add = new Node;
@@ -64,7 +64,7 @@ void Container::add_student(Student* St, int index) {
 
 Container& Container::delete_student(int index) {
     if (index < 0 || index >= count) {
-        throw out_of_range("Index out of range");
+        throw out_of_range("Индекс вне диапазона");
     }
 
     Node* temp = head;
@@ -97,12 +97,12 @@ Container& Container::delete_student(int index) {
 void Container::display_students() {
     Node* temp = head;
     if (count == 0) {
-        cout << "No data" << endl;
+        cout << "Нет данных" << endl;
         return;
     }
     int index = 1;
     while (temp != 0) {
-        cout << index << " - Student:\n";
+        cout << index << " - Студент:\n";
         temp->data->display_student();
         temp = temp->next;
         index++;
@@ -134,9 +134,9 @@ void Container::search_students_with_failing_marks() {
 
         for (int i = 0; i < size; i++) {
             if (marks[i] < 3.0f) {
-                cout << "Student with group number " << student->get_number()
-                     << " and name " << student->get_name()
-                     << " has at least one failing grade." << endl;
+                cout << "Студент с номером группы " << student->get_number()
+                     << " и именем " << student->get_name()
+                     << " имеет хотя бы одну неудовлетворительную оценку." << endl;
                 found = true;
                 break;
             }
@@ -145,14 +145,14 @@ void Container::search_students_with_failing_marks() {
     }
 
     if (!found) {
-        cout << "No students with failing grades were found." << endl;
+        cout << "Студентов с неудовлетворительными оценками не найдено." << endl;
     }
 }
 
 
 Container& Container::edit_student(int index) {
     if (index < 0 || index >= count) {
-        throw out_of_range("Index out of range");
+        throw out_of_range("Индекс вне диапазона");
     }
 
     Node* temp = head;
@@ -166,7 +166,7 @@ Container& Container::edit_student(int index) {
 
 Container& Container::operator[](int index) {
     if (index < 0 || index >= count) {
-        throw out_of_range("Index out of range");
+        throw out_of_range("Индекс вне диапазона");
     }
 
     Node* temp = head;
